@@ -7,7 +7,7 @@
 
 class PixelMatrix
 {
-	std::vector<std::vector<Pixel> > matrix;
+	std::vector<std::vector<Pixel>> matrix;
 public:
 	explicit PixelMatrix(unsigned int, unsigned int);
 	inline const std::vector<Pixel>& operator[](int) const;
