@@ -9,6 +9,8 @@ class PixelMatrix
 {
 	std::vector<std::vector<Pixel>> matrix;
 public:
+	const unsigned int n, m;
+
 	explicit PixelMatrix(unsigned int, unsigned int);
 	inline const std::vector<Pixel>& operator[](int) const;
 };
