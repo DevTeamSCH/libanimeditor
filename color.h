@@ -3,8 +3,7 @@
 
 #include <QColor>
 
-class Color : QColor
-{
+class Color : QColor {
 public:
 	inline explicit Color(int, int, int, int = 255);
 	inline Color(const QColor&);

@@ -5,8 +5,7 @@
 
 #include "pixel.h"
 
-class PixelMatrix
-{
+class PixelMatrix {
 	std::vector<std::vector<Pixel>> matrix;
 
 	inline bool checkBounds(unsigned int n, unsigned int m) const;

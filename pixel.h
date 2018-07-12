@@ -3,8 +3,7 @@
 
 #include "color.h"
 
-class Pixel
-{
+class Pixel {
 	Color color;
 public:
 	inline explicit Pixel(const Color& = Color(0, 0, 0));
