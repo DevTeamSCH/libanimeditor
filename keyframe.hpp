@@ -5,10 +5,12 @@
 
 template<typename T>
 class KeyFrame {
-	std::shared_ptr<T> t;
+	std::unique_ptr<T> t;
 	double duration; // the duration of the keyframe
 public:
-	explicit KeyFrame(const std::shared_ptr<T>&, double);
+	explicit KeyFrame(const std::unique_ptr<T>&, double);
+	KeyFrame(const KeyFrame<T>&);
+	KeyFrame(KeyFrame<T>&&) = delete;
 	void setDuration(double);
 	double getDuration() const;
 	T& getObject();
@@ -16,9 +18,17 @@ public:
 };
 
 template<typename T>
-KeyFrame<T>::KeyFrame(const std::shared_ptr<T>& t, double duration) :
+KeyFrame<T>::KeyFrame(const std::unique_ptr<T>& t, double duration) :
 	t(t),
 	duration(duration)
+{
+
+}
+
+template<typename T>
+KeyFrame<T>::KeyFrame(const KeyFrame<T>& other) :
+	t(std::make_unique(*other.t)),
+	duration(other.duration)
 {
 
 }
