@@ -27,8 +27,8 @@ class Timeline {
 	 */
 	std::map<double, KeyFrame<T>> timeKeyFrameMap;
 
-	typename std::map<double, KeyFrame<T>>::iterator
-	getIteratorForKeyFrame(double time);
+	typename std::map<double, KeyFrame<T>>::const_iterator
+	getIteratorForKeyFrame(double time) const;
 public:
 	void addKeyFrame(const KeyFrame<T>&);
 	typename return_type<T>::type getObject(double time);
@@ -36,8 +36,8 @@ public:
 };
 
 template<typename T>
-typename std::map<double, KeyFrame<T>>::iterator
-Timeline<T>::getIteratorForKeyFrame(double time)
+typename std::map<double, KeyFrame<T>>::const_iterator
+Timeline<T>::getIteratorForKeyFrame(double time) const
 {
 	auto it = timeKeyFrameMap.lower_bound(time);
 	if (it == timeKeyFrameMap.end() ||
