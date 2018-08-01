@@ -74,13 +74,23 @@ typename return_type<T>::const_type Timeline<T>::getObject(double time) const
 	return getIteratorForKeyFrame(time)->second.getObject();
 }
 
-/* This is not yet implemented. For GraphicsState objects we interpolate
- * between keyframes.
 template<>
 return_type<GraphicsState>::const_type
 Timeline<GraphicsState>::getObject(double time) const
 {
+	auto it = getIteratorForKeyFrame(time);
+	auto next = it;
+	++next;
 
+	if (next == timeKeyFrameMap.end())
+		return it->second.getObject();
+
+	double ratio = (time - it->first) / it->second.getDuration();
+	const GraphicsState& currentObject = it->second.getObject();
+	const GraphicsState& nextObject = next->second.getObject();
+
+	return GraphicsState{(1.0 - ratio) * currentObject.pos +
+				ratio * nextObject.pos, currentObject.visible};
 }
-*/
+
 #endif // TIMELINE_H
