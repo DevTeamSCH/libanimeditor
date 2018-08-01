@@ -65,7 +65,9 @@ void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 template<typename T>
 typename return_type<T>::type Timeline<T>::getObject(double time)
 {
-	return getIteratorForKeyFrame(time)->second.getObject();
+	return const_cast<typename return_type<T>::type>
+			(const_cast<const Timeline<T> *>
+			 (getIteratorForKeyFrame(time))->second.getObject());
 }
 
 template<typename T>
