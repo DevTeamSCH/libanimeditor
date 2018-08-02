@@ -62,8 +62,8 @@ Timeline<T>::getIteratorForKeyFrame(const TimePoint& time) const
 template<typename T>
 void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 {
-	double prevTime = 0.0;
-	double prevDuration = 0.0;
+	TimePoint prevTime(0);
+	Duration prevDuration(0);
 
 	if (!timeKeyFrameMap.empty()) {
 		auto it = timeKeyFrameMap.rbegin();
