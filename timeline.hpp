@@ -37,16 +37,17 @@ class Timeline {
 	std::map<TimePoint, KeyFrame<T>> timeKeyFrameMap;
 
 	typename std::map<TimePoint, KeyFrame<T>>::const_iterator
-	getIteratorForKeyFrame(TimePoint time) const;
+	getIteratorForKeyFrame(const TimePoint& time) const;
 public:
 	void addKeyFrame(const KeyFrame<T>&);
-	typename return_type<T>::type getObject(TimePoint time);
-	typename return_type<T>::const_type getObject(TimePoint time) const;
+	typename return_type<T>::type getObject(const TimePoint& time);
+	typename return_type<T>::const_type
+	getObject(const TimePoint& time) const;
 };
 
 template<typename T>
 typename std::map<TimePoint, KeyFrame<T>>::const_iterator
-Timeline<T>::getIteratorForKeyFrame(TimePoint time) const
+Timeline<T>::getIteratorForKeyFrame(const TimePoint& time) const
 {
 	auto it = timeKeyFrameMap.lower_bound(time);
 
@@ -78,7 +79,7 @@ void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 }
 
 template<typename T>
-typename return_type<T>::type Timeline<T>::getObject(TimePoint time)
+typename return_type<T>::type Timeline<T>::getObject(const TimePoint& time)
 {
 	// getIteratorForKeyFrame can only be called on a const object
 	return const_cast<typename return_type<T>::type>
@@ -87,7 +88,8 @@ typename return_type<T>::type Timeline<T>::getObject(TimePoint time)
 }
 
 template<typename T>
-typename return_type<T>::const_type Timeline<T>::getObject(TimePoint time) const
+typename return_type<T>::const_type
+Timeline<T>::getObject(const TimePoint& time) const
 {
 	return getIteratorForKeyFrame(time)->second.getObject();
 }
@@ -95,7 +97,7 @@ typename return_type<T>::const_type Timeline<T>::getObject(TimePoint time) const
 // specialization, T = GraphicsState
 template<>
 return_type<GraphicsState>::const_type
-Timeline<GraphicsState>::getObject(TimePoint time) const
+Timeline<GraphicsState>::getObject(const TimePoint& time) const
 {
 	auto it = getIteratorForKeyFrame(time);
 	auto next = it;
