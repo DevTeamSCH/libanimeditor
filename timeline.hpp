@@ -34,19 +34,19 @@ class Timeline {
 	 * a KeyFrame in the Timeline it's useful to store when that KeyFrame
 	 * starts
 	 */
-	std::map<double, KeyFrame<T>> timeKeyFrameMap;
+	std::map<TimePoint, KeyFrame<T>> timeKeyFrameMap;
 
-	typename std::map<double, KeyFrame<T>>::const_iterator
-	getIteratorForKeyFrame(double time) const;
+	typename std::map<TimePoint, KeyFrame<T>>::const_iterator
+	getIteratorForKeyFrame(TimePoint time) const;
 public:
 	void addKeyFrame(const KeyFrame<T>&);
-	typename return_type<T>::type getObject(double time);
-	typename return_type<T>::const_type getObject(double time) const;
+	typename return_type<T>::type getObject(TimePoint time);
+	typename return_type<T>::const_type getObject(TimePoint time) const;
 };
 
 template<typename T>
-typename std::map<double, KeyFrame<T>>::const_iterator
-Timeline<T>::getIteratorForKeyFrame(double time) const
+typename std::map<TimePoint, KeyFrame<T>>::const_iterator
+Timeline<T>::getIteratorForKeyFrame(TimePoint time) const
 {
 	auto it = timeKeyFrameMap.lower_bound(time);
 
@@ -78,7 +78,7 @@ void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 }
 
 template<typename T>
-typename return_type<T>::type Timeline<T>::getObject(double time)
+typename return_type<T>::type Timeline<T>::getObject(TimePoint time)
 {
 	// getIteratorForKeyFrame can only be called on a const object
 	return const_cast<typename return_type<T>::type>
@@ -87,7 +87,7 @@ typename return_type<T>::type Timeline<T>::getObject(double time)
 }
 
 template<typename T>
-typename return_type<T>::const_type Timeline<T>::getObject(double time) const
+typename return_type<T>::const_type Timeline<T>::getObject(TimePoint time) const
 {
 	return getIteratorForKeyFrame(time)->second.getObject();
 }
@@ -95,7 +95,7 @@ typename return_type<T>::const_type Timeline<T>::getObject(double time) const
 // specialization, T = GraphicsState
 template<>
 return_type<GraphicsState>::const_type
-Timeline<GraphicsState>::getObject(double time) const
+Timeline<GraphicsState>::getObject(TimePoint time) const
 {
 	auto it = getIteratorForKeyFrame(time);
 	auto next = it;
@@ -105,7 +105,8 @@ Timeline<GraphicsState>::getObject(double time) const
 	if (next == timeKeyFrameMap.end())
 		return it->second.getObject();
 
-	double ratio = (time - it->first) / it->second.getDuration();
+	double ratio = static_cast<double>((time - it->first).count()) /
+			it->second.getDuration().count();
 	const GraphicsState& currentObject = it->second.getObject();
 	const GraphicsState& nextObject = next->second.getObject();
 

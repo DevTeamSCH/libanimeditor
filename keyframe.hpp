@@ -2,23 +2,27 @@
 #define KEYFRAME_H
 
 #include <memory>
+#include <chrono>
+
+using Duration = std::chrono::duration<int, std::milli>;
+using TimePoint = std::chrono::duration<int, std::milli>;
 
 template<typename T>
 class KeyFrame {
 	std::unique_ptr<T> t;
-	double duration; // the duration of the keyframe
+	Duration duration; // the duration of the keyframe
 public:
-	explicit KeyFrame(const std::unique_ptr<T>&, double);
+	explicit KeyFrame(const std::unique_ptr<T>&, Duration);
 	KeyFrame(const KeyFrame<T>&);
 	KeyFrame(KeyFrame<T>&&) = delete;
-	void setDuration(double);
-	double getDuration() const;
+	void setDuration(Duration);
+	Duration getDuration() const;
 	T& getObject();
 	const T& getObject() const;
 };
 
 template<typename T>
-KeyFrame<T>::KeyFrame(const std::unique_ptr<T>& t, double duration) :
+KeyFrame<T>::KeyFrame(const std::unique_ptr<T>& t, Duration duration) :
 	t(t),
 	duration(duration)
 {
@@ -34,13 +38,13 @@ KeyFrame<T>::KeyFrame(const KeyFrame<T>& other) :
 }
 
 template<typename T>
-void KeyFrame<T>::setDuration(double duration)
+void KeyFrame<T>::setDuration(Duration duration)
 {
 	this->duration = duration;
 }
 
 template<typename T>
-double KeyFrame<T>::getDuration() const
+Duration KeyFrame<T>::getDuration() const
 {
 	return duration;
 }
