@@ -31,7 +31,7 @@ KeyFrame<T>::KeyFrame(const std::unique_ptr<T>& t, Duration duration) :
 
 template<typename T>
 KeyFrame<T>::KeyFrame(const KeyFrame<T>& other) :
-	t(std::make_unique(*other.t)),
+	t(std::make_unique<T>(*other.t)),
 	duration(other.duration)
 {
 
