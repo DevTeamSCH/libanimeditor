@@ -85,8 +85,8 @@ typename return_type<T>::type Timeline<T>::getObject(const TimePoint& time)
 {
 	// getIteratorForKeyFrame can only be called on a const object
 	return const_cast<typename return_type<T>::type>
-			(const_cast<const Timeline<T> *>
-			 (getIteratorForKeyFrame(time))->second.getObject());
+			(const_cast<const Timeline<T> *>(this)->
+			 getObject(time));
 }
 
 template<typename T>
