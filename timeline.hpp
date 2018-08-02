@@ -6,6 +6,11 @@
 #include "keyframe.hpp"
 #include "grapicsstate.h"
 
+/*
+ * Returning a GraphicsState is different than returning a PixelMatrix, as we
+ * interpolate between two states creating a temporary object, and we can't
+ * return it by reference. This way we can specialize the return type.
+ */
 template<typename T>
 struct return_type {
 	using type = T&;
@@ -18,6 +23,10 @@ struct return_type<GraphicsState> {
 	using const_type = GraphicsState;
 };
 
+/*
+ * Stores KeyFrames based on their starting time. Can return the relevant object
+ * stored by the KeyFrame for the given time point.
+ */
 template<typename T>
 class Timeline {
 	/*
@@ -40,6 +49,8 @@ typename std::map<double, KeyFrame<T>>::const_iterator
 Timeline<T>::getIteratorForKeyFrame(double time) const
 {
 	auto it = timeKeyFrameMap.lower_bound(time);
+
+	// If timeKeyFrameMap is empty, or time is pointing out of the Timeline
 	if (it == timeKeyFrameMap.end() ||
 			it->first + it->second.getDuration() < time)
 		throw std::out_of_range("Invalid time");
@@ -59,12 +70,17 @@ void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 		prevDuration = it->second.getDuration();
 	}
 
+	/*
+	 * The new KeyFrame's start time is the previous KeyFrame's start time
+	 * plus its duration.
+	 */
 	timeKeyFrameMap[prevTime + prevDuration] = keyFrame;
 }
 
 template<typename T>
 typename return_type<T>::type Timeline<T>::getObject(double time)
 {
+	// getIteratorForKeyFrame can only be called on a const object
 	return const_cast<typename return_type<T>::type>
 			(const_cast<const Timeline<T> *>
 			 (getIteratorForKeyFrame(time))->second.getObject());
@@ -76,6 +92,7 @@ typename return_type<T>::const_type Timeline<T>::getObject(double time) const
 	return getIteratorForKeyFrame(time)->second.getObject();
 }
 
+// specialization, T = GraphicsState
 template<>
 return_type<GraphicsState>::const_type
 Timeline<GraphicsState>::getObject(double time) const
@@ -84,6 +101,7 @@ Timeline<GraphicsState>::getObject(double time) const
 	auto next = it;
 	++next;
 
+	// if it is an iterator to the last element we can't interpolate
 	if (next == timeKeyFrameMap.end())
 		return it->second.getObject();
 
