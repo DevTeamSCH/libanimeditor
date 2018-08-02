@@ -75,7 +75,9 @@ void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 	 * The new KeyFrame's start time is the previous KeyFrame's start time
 	 * plus its duration.
 	 */
-	timeKeyFrameMap[prevTime + prevDuration] = keyFrame;
+	timeKeyFrameMap.insert(std::pair<TimePoint, KeyFrame<T>>(prevTime +
+								 prevDuration,
+								 keyFrame));
 }
 
 template<typename T>
