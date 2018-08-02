@@ -118,4 +118,13 @@ Timeline<GraphicsState>::getObject(const TimePoint& time) const
 				ratio * nextObject.pos, currentObject.visible};
 }
 
+template<>
+typename return_type<GraphicsState>::type
+Timeline<GraphicsState>::getObject(const TimePoint& time)
+{
+	// getIteratorForKeyFrame can only be called on a const object
+	return const_cast<const Timeline<GraphicsState> *>(this)->
+			 getObject(time);
+}
+
 #endif // TIMELINE_H
