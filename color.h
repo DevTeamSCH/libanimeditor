@@ -14,6 +14,8 @@ public:
 	inline void setRed(int r);
 	inline void setGreen(int g);
 	inline void setBlue(int b);
+	inline Color operator+(const Color& other);
+	inline Color operator+=(const Color& other);
 };
 
 Color::Color(int r, int g, int b, int a) :
@@ -62,6 +64,19 @@ void Color::setGreen(int g)
 void Color::setBlue(int b)
 {
 	QColor::setBlue(b);
+}
+
+Color Color::operator+(const Color& other)
+{
+	return Color(std::max(other.red() + red(), 255),
+		     std::max(other.green() + green(), 255),
+		     std::max(other.blue() + blue(), 255),
+		     std::max(other.alpha() + alpha(), 255));
+}
+
+Color Color::operator+=(const Color& other)
+{
+	return *this = *this + other;
 }
 
 #endif // COLOR_H
