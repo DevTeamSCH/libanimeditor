@@ -49,12 +49,19 @@ template<typename T>
 typename std::map<TimePoint, KeyFrame<T>>::const_iterator
 Timeline<T>::getIteratorForKeyFrame(const TimePoint& time) const
 {
-	auto it = timeKeyFrameMap.lower_bound(time);
+	auto it = timeKeyFrameMap.upper_bound(time);
 
-	// If timeKeyFrameMap is empty, or time is pointing out of the Timeline
-	if (it == timeKeyFrameMap.end() ||
-			it->first + it->second.getDuration() < time)
-		throw std::out_of_range("Invalid time");
+	// If the Timeline is empty or the time is negative
+	if (it == timeKeyFrameMap.begin())
+		throw std::out_of_range("Empty Timeline or "
+					"negative time point");
+
+	--it;
+
+	// If time is pointing out of the Timeline
+	if (it->first + it->second.getDuration() < time)
+		throw std::out_of_range("The Timeline does not contain the "
+					"given time point");
 
 	return it;
 }
