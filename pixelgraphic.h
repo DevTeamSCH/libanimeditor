@@ -20,7 +20,8 @@ public:
 };
 
 PixelGraphic::PixelGraphic(const PixelGraphic& other) :
-	personalTimeline(other.personalTimeline)
+	personalTimeline(other.personalTimeline),
+	childTimelines(other.childTimelines.size())
 {
 	for (const auto& it : other.childTimelines) {
 		childTimelines.push_back(
