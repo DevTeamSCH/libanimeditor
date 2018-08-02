@@ -53,8 +53,8 @@ void Timeline<T>::addKeyFrame(const KeyFrame<T>& keyFrame)
 	double prevTime = 0.0;
 	double prevDuration = 0.0;
 
-	auto it = timeKeyFrameMap.rbegin();
-	if (it != timeKeyFrameMap.rend()) {
+	if (!timeKeyFrameMap.empty()) {
+		auto it = timeKeyFrameMap.rbegin();
 		prevTime = it->first;
 		prevDuration = it->second.getDuration();
 	}
