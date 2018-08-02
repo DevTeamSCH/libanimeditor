@@ -15,7 +15,7 @@ public:
 	explicit KeyFrame(std::unique_ptr<T>&&, const Duration&);
 	KeyFrame(const KeyFrame<T>&);
 	KeyFrame(KeyFrame<T>&&) = delete;
-	void setDuration(Duration);
+	void setDuration(const Duration&);
 	Duration getDuration() const;
 	T& getObject();
 	const T& getObject() const;
@@ -38,7 +38,7 @@ KeyFrame<T>::KeyFrame(const KeyFrame<T>& other) :
 }
 
 template<typename T>
-void KeyFrame<T>::setDuration(Duration duration)
+void KeyFrame<T>::setDuration(const Duration& duration)
 {
 	this->duration = duration;
 }
