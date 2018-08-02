@@ -12,7 +12,7 @@ class KeyFrame {
 	std::unique_ptr<T> t;
 	Duration duration; // the duration of the keyframe
 public:
-	explicit KeyFrame(std::unique_ptr<T>&&, Duration);
+	explicit KeyFrame(std::unique_ptr<T>&&, const Duration&);
 	KeyFrame(const KeyFrame<T>&);
 	KeyFrame(KeyFrame<T>&&) = delete;
 	void setDuration(Duration);
@@ -22,7 +22,7 @@ public:
 };
 
 template<typename T>
-KeyFrame<T>::KeyFrame(std::unique_ptr<T>&& t, Duration duration) :
+KeyFrame<T>::KeyFrame(std::unique_ptr<T>&& t, const Duration& duration) :
 	t(std::move(t)),
 	duration(duration)
 {
