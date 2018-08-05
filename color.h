@@ -68,10 +68,15 @@ void Color::setBlue(int b)
 
 Color Color::operator+(const Color& other)
 {
-	return Color(std::max(other.red() + red(), 255),
-		     std::max(other.green() + green(), 255),
-		     std::max(other.blue() + blue(), 255),
-		     std::max(other.alpha() + alpha(), 255));
+	// blend factor
+	double bf = other.alphaF();
+
+	return Color(static_cast<int>((1.0 - bf) * red() + bf * other.red()),
+		     static_cast<int>((1.0 - bf) * green() +
+				      bf * other.green()),
+		     static_cast<int>((1.0 - bf) * blue() + bf * other.blue()),
+		     static_cast<int>((1.0 - bf) * alpha() +
+				      bf * other.alpha()));
 }
 
 Color Color::operator+=(const Color& other)
