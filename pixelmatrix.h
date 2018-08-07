@@ -19,6 +19,7 @@ public:
 	inline const Pixel& getPixel(unsigned int, unsigned int) const;
 	inline Pixel& getPixel(const vec2&);
 	inline const Pixel& getPixel(const vec2&) const;
+	inline void addLayer(const PixelMatrix&, const vec2&);
 
 	static std::pair<int, int> roundvec2(const vec2&);
 };
@@ -54,6 +55,38 @@ const Pixel& PixelMatrix::getPixel(const vec2& v) const
 
 	return getPixel(static_cast<unsigned int>(p.first),
 			static_cast<unsigned int>(p.second));
+}
+
+void PixelMatrix::addLayer(const PixelMatrix& pm, const vec2& v)
+{
+	auto p = roundvec2(v);
+
+	for (unsigned int i = 0; i < pm.n; ++i) {
+		int row = static_cast<int>(i) + p.first;
+
+		if (row < 0)
+			continue;
+
+		if (row >= static_cast<int>(n))
+			break;
+
+		for (unsigned int j = 0; j < pm.m; ++j) {
+			int column = static_cast<int>(j) + p.second;
+
+			if (column < 0)
+				continue;
+
+			if (column >= static_cast<int>(m))
+				break;
+
+			auto& pixel = matrix[static_cast<unsigned int>(row)]
+					[static_cast<unsigned int>(column)];
+
+			pixel.setColor(pixel.getColor() +
+				       pm.getPixel(i, j).getColor());
+
+		}
+	}
 }
 
 std::pair<int, int> PixelMatrix::roundvec2(const vec2& v)
