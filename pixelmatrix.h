@@ -83,7 +83,7 @@ void PixelMatrix::addLayer(const PixelMatrix& pm, const vec2& v)
 					[static_cast<unsigned int>(column)];
 
 			pixel.setColor(pixel.getColor() +
-				       pm.getPixel(i, j).getColor());
+				       pm.matrix[i][j].getColor());
 
 		}
 	}
