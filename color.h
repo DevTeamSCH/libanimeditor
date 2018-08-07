@@ -14,7 +14,7 @@ public:
 	inline void setRed(int r);
 	inline void setGreen(int g);
 	inline void setBlue(int b);
-	inline Color operator+(const Color& other);
+	inline Color operator+(const Color& other) const;
 	inline Color operator+=(const Color& other);
 };
 
@@ -66,7 +66,7 @@ void Color::setBlue(int b)
 	QColor::setBlue(b);
 }
 
-Color Color::operator+(const Color& other)
+Color Color::operator+(const Color& other) const
 {
 	// blend factor
 	double bf = other.alphaF();
