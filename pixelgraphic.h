@@ -15,8 +15,7 @@ class PixelGraphic {
 public:
 	PixelGraphic();
 	inline PixelGraphic(const PixelGraphic&);
-	inline PixelMatrix& getMatrix();
-	inline const PixelMatrix& getMatrix() const;
+	inline PixelMatrix getMatrix(const TimePoint& time) const;
 };
 
 PixelGraphic::PixelGraphic(const PixelGraphic& other) :
@@ -31,6 +30,21 @@ PixelGraphic::PixelGraphic(const PixelGraphic& other) :
 							*it.first),
 						it.second));
 	}
+}
+
+PixelMatrix PixelGraphic::getMatrix(const TimePoint& time) const
+{
+	PixelMatrix pm(personalTimeline.getObject(time));
+	for (const auto& p : childTimelines) {
+		GraphicsState state = p.second.getObject(time);
+
+		if (!state.visible)
+			continue;
+
+		pm.addLayer(p.first->getMatrix(time), state.pos);
+	}
+
+	return pm;
 }
 
 #endif // PIXELGRAPHIC_H
