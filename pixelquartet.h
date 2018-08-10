@@ -8,9 +8,9 @@
 class PixelQuartet {
 	std::array<std::array<Pixel, 2>, 2> pixels;
 public:
-	PixelQuartet();
-	Pixel& getPixel(unsigned int, unsigned int);
-	const Pixel& getPixel(unsigned int, unsigned int) const;
+	inline PixelQuartet();
+	inline Pixel& getPixel(unsigned int, unsigned int);
+	inline const Pixel& getPixel(unsigned int, unsigned int) const;
 };
 
 PixelQuartet::PixelQuartet()
