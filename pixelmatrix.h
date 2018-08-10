@@ -4,21 +4,22 @@
 #include <vector>
 #include <cmath>
 
-#include "pixel.h"
+#include "pixelquartet.h"
 #include "grapicsstate.h"
 
 class PixelMatrix {
-	std::vector<std::vector<Pixel>> matrix;
+	std::vector<PixelQuartet> matrix;
 
 	inline bool checkBounds(unsigned int n, unsigned int m) const;
 public:
 	const unsigned int n, m;
 
 	explicit PixelMatrix(unsigned int, unsigned int);
-	inline Pixel& getPixel(unsigned int, unsigned int);
-	inline const Pixel& getPixel(unsigned int, unsigned int) const;
-	inline Pixel& getPixel(const vec2&);
-	inline const Pixel& getPixel(const vec2&) const;
+	inline PixelQuartet& getPixelQuartet(unsigned int, unsigned int);
+	inline const PixelQuartet&
+	getPixelQuartet(unsigned int, unsigned int) const;
+	inline PixelQuartet& getPixelQuartet(const vec2&);
+	inline const PixelQuartet& getPixelQuartet(const vec2&) const;
 	inline void addLayer(const PixelMatrix&, const vec2&);
 
 	static std::pair<int, int> roundvec2(const vec2&);
@@ -29,31 +30,32 @@ bool PixelMatrix::checkBounds(unsigned int n, unsigned int m) const
 	return n < this->n && m < this->m;
 }
 
-Pixel& PixelMatrix::getPixel(unsigned int n, unsigned int m)
+PixelQuartet& PixelMatrix::getPixelQuartet(unsigned int n, unsigned int m)
 {
-	return const_cast<Pixel&>(const_cast<const PixelMatrix *>(this)->
-				  getPixel(n, m));
+	return const_cast<PixelQuartet&>(const_cast<const PixelMatrix *>(this)->
+				  getPixelQuartet(n, m));
 }
 
-const Pixel& PixelMatrix::getPixel(unsigned int n, unsigned int m) const
+const PixelQuartet&
+PixelMatrix::getPixelQuartet(unsigned int n, unsigned int m) const
 {
 	if (!checkBounds(n, m))
 		throw std::out_of_range("Out of range error");
 
-	return matrix[n][m];
+	return matrix[n * this->n + m];
 }
 
-Pixel& PixelMatrix::getPixel(const vec2& v)
+PixelQuartet& PixelMatrix::getPixelQuartet(const vec2& v)
 {
-	return const_cast<Pixel&>(const_cast<const PixelMatrix *>(this)->
-				  getPixel(v));
+	return const_cast<PixelQuartet&>(const_cast<const PixelMatrix *>(this)->
+				  getPixelQuartet(v));
 }
 
-const Pixel& PixelMatrix::getPixel(const vec2& v) const
+const PixelQuartet& PixelMatrix::getPixelQuartet(const vec2& v) const
 {
 	auto p = roundvec2(v);
 
-	return getPixel(static_cast<unsigned int>(p.first),
+	return getPixelQuartet(static_cast<unsigned int>(p.first),
 			static_cast<unsigned int>(p.second));
 }
 
@@ -79,11 +81,13 @@ void PixelMatrix::addLayer(const PixelMatrix& pm, const vec2& v)
 			if (column >= static_cast<int>(m))
 				break;
 
-			auto& pixel = matrix[static_cast<unsigned int>(row)]
-					[static_cast<unsigned int>(column)];
+			auto& pixelQuartet =
+					getPixelQuartet(
+						static_cast<unsigned int>(row),
+						static_cast<unsigned int>(
+							column));
 
-			pixel.setColor(pixel.getColor() +
-				       pm.matrix[i][j].getColor());
+			pixelQuartet += pm.getPixelQuartet(i, j);
 
 		}
 	}
