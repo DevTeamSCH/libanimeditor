@@ -42,7 +42,7 @@ PixelMatrix::getPixelQuartet(unsigned int n, unsigned int m) const
 	if (!checkBounds(n, m))
 		throw std::out_of_range("Out of range error");
 
-	return matrix[n * this->n + m];
+	return matrix[n * this->m + m];
 }
 
 PixelQuartet& PixelMatrix::getPixelQuartet(const vec2& v)
