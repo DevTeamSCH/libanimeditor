@@ -15,7 +15,7 @@ public:
 	inline void setGreen(int g);
 	inline void setBlue(int b);
 	inline Color operator+(const Color& other) const;
-	inline Color operator+=(const Color& other);
+	inline Color& operator+=(const Color& other);
 };
 
 Color::Color(int r, int g, int b, int a) :
@@ -79,7 +79,7 @@ Color Color::operator+(const Color& other) const
 				      bf * other.alpha()));
 }
 
-Color Color::operator+=(const Color& other)
+Color& Color::operator+=(const Color& other)
 {
 	return *this = *this + other;
 }
