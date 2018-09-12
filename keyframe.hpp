@@ -9,7 +9,7 @@ using TimePoint = std::chrono::duration<int, std::milli>;
 
 template<typename T>
 class KeyFrame {
-    T t;
+	T t;
 	Duration duration; // the duration of the keyframe
 public:
 	explicit KeyFrame(const T& t, const Duration& duration);
