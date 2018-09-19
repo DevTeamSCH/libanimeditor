@@ -6,15 +6,15 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_library(animeditor
-        color.cpp
-        color.h
-        grapicsstate.h
-        keyframe.hpp
-        pixel.cpp
-        pixel.h
-        pixelgraphic.h
-        pixelmatrix.cpp
-        pixelmatrix.h
-        pixelquartet.h
-        timeline.hpp
-        vec2.h)
+        src/color.cpp
+        src/color.h
+        src/grapicsstate.h
+        src/keyframe.hpp
+        src/pixel.cpp
+        src/pixel.h
+        src/pixelgraphic.h
+        src/pixelmatrix.cpp
+        src/pixelmatrix.h
+        src/pixelquartet.h
+        src/timeline.hpp
+        src/vec2.h)
