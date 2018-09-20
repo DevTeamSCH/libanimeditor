@@ -35,7 +35,6 @@ bool Color::checkIntegrity(int value)
 	return value >= 0 && value <= 255;
 }
 
-
 Color::Color(int r, int g, int b, int a) :
 	r(r),
 	g(g),
@@ -90,10 +89,12 @@ Color Color::operator+(const Color& other) const
 	// blend factor
 	double bf = other.alpha() / 255.0;
 
-	return Color(static_cast<int>((1.0 - bf) * red() + bf * other.red()),
+	return Color(static_cast<int>((1.0 - bf) * red() +
+				      bf * other.red()),
 		     static_cast<int>((1.0 - bf) * green() +
 				      bf * other.green()),
-		     static_cast<int>((1.0 - bf) * blue() + bf * other.blue()),
+		     static_cast<int>((1.0 - bf) * blue() +
+				      bf * other.blue()),
 		     static_cast<int>((1.0 - bf) * alpha() +
 				      bf * other.alpha()));
 }
