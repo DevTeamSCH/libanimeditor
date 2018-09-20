@@ -10,6 +10,11 @@ class Color {
 	inline static bool checkIntegrity(int value);
 public:
 	inline explicit Color(int, int, int, int = 255);
+	Color(const Color&) = default;
+	Color(Color&&) = default;
+	Color& operator=(const Color&) = default;
+	Color& operator=(Color&&) = default;
+
 	inline int red() const;
 	inline int green() const;
 	inline int blue() const;
