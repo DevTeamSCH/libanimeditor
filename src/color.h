@@ -15,10 +15,10 @@ public:
 	Color& operator=(const Color&) = default;
 	Color& operator=(Color&&) = default;
 
-	inline int red() const;
-	inline int green() const;
-	inline int blue() const;
-	inline int alpha() const;
+	inline int getRed() const;
+	inline int getGreen() const;
+	inline int getBlue() const;
+	inline int getAlpha() const;
 	inline void setRed(int r);
 	inline void setGreen(int g);
 	inline void setBlue(int b);
@@ -49,22 +49,22 @@ Color::Color(int r, int g, int b, int a) :
 
 }
 
-int Color::red() const
+int Color::getRed() const
 {
 	return r;
 }
 
-int Color::green() const
+int Color::getGreen() const
 {
 	return g;
 }
 
-int Color::blue() const
+int Color::getBlue() const
 {
 	return b;
 }
 
-int Color::alpha() const
+int Color::getAlpha() const
 {
 	return a;
 }
@@ -92,16 +92,16 @@ void Color::setAlpha(int a)
 Color Color::operator+(const Color& other) const
 {
 	// blend factor
-	double bf = other.alpha() / 255.0;
+	double bf = other.getAlpha() / 255.0;
 
-	return Color(static_cast<int>((1.0 - bf) * red() +
-				      bf * other.red()),
-		     static_cast<int>((1.0 - bf) * green() +
-				      bf * other.green()),
-		     static_cast<int>((1.0 - bf) * blue() +
-				      bf * other.blue()),
-		     static_cast<int>((1.0 - bf) * alpha() +
-				      bf * other.alpha()));
+	return Color(static_cast<int>((1.0 - bf) * getRed() +
+				      bf * other.getRed()),
+		     static_cast<int>((1.0 - bf) * getGreen() +
+				      bf * other.getGreen()),
+		     static_cast<int>((1.0 - bf) * getBlue() +
+				      bf * other.getBlue()),
+		     static_cast<int>((1.0 - bf) * getAlpha() +
+				      bf * other.getAlpha()));
 }
 
 Color& Color::operator+=(const Color& other)
