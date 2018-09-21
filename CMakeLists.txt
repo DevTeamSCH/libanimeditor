@@ -22,3 +22,13 @@ set(SOURCES src/color.cpp
         src/pixelmatrix.cpp)
 
 add_library(animeditor ${HEADERS} ${SOURCES})
+
+# Tests
+set(TEST_HEADERS test/catch.hpp)
+
+set(TEST_SOURCES test/main.cpp)
+
+add_executable(libanimeditor-test ${TEST_HEADERS} ${TEST_SOURCES})
+
+target_link_libraries(libanimeditor-test
+        animeditor)
