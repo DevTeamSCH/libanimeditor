@@ -3,18 +3,22 @@ project(libanimeditor)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(.)
+include_directories(.
+        include)
 
-add_library(animeditor
-        src/color.cpp
-        src/color.h
-        src/grapicsstate.h
-        src/keyframe.hpp
+# Library
+set(HEADERS include/color.h
+        include/grapicsstate.h
+        include/keyframe.hpp
+        include/pixel.h
+        include/pixelgraphic.h
+        include/pixelmatrix.h
+        include/pixelquartet.h
+        include/timeline.hpp
+        include/vec2.h)
+
+set(SOURCES src/color.cpp
         src/pixel.cpp
-        src/pixel.h
-        src/pixelgraphic.h
-        src/pixelmatrix.cpp
-        src/pixelmatrix.h
-        src/pixelquartet.h
-        src/timeline.hpp
-        src/vec2.h)
+        src/pixelmatrix.cpp)
+
+add_library(animeditor ${HEADERS} ${SOURCES})
