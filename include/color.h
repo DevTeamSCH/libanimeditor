@@ -40,13 +40,12 @@ bool Color::checkIntegrity(int value)
 	return value >= 0 && value <= 255;
 }
 
-Color::Color(int r, int g, int b, int a) :
-	r(r),
-	g(g),
-	b(b),
-	a(a)
+Color::Color(int r, int g, int b, int a)
 {
-
+	setComponent(this->r, r);
+	setComponent(this->g, g);
+	setComponent(this->b, b);
+	setComponent(this->a, a);
 }
 
 int Color::getRed() const
