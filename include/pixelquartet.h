@@ -44,9 +44,7 @@ PixelQuartet PixelQuartet::operator+(const PixelQuartet& other) const
 	PixelQuartet tmp(*this);
 	for (unsigned int i = 0; i < 2; ++i) {
 		for (unsigned int j = 0; j < 2; ++j) {
-			auto& pixel = tmp.pixels[i][j];
-			pixel.setColor(pixel.getColor() +
-				       other.pixels[i][j].getColor());
+			tmp.pixels[i][j] += other.pixels[i][j];
 		}
 	}
 
