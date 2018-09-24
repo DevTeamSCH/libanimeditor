@@ -14,6 +14,11 @@ class PixelMatrix {
 	inline bool checkBounds(unsigned int n, unsigned int m) const;
 public:
 	explicit inline PixelMatrix(unsigned int, unsigned int);
+	PixelMatrix(const PixelMatrix&) = default;
+	PixelMatrix(PixelMatrix&&) = default;
+	inline PixelMatrix& operator=(const PixelMatrix&) = default;
+	inline PixelMatrix& operator=(PixelMatrix&&) = default;
+
 	unsigned int getN() const;
 	unsigned int getM() const;
 	inline PixelQuartet& getPixelQuartet(unsigned int, unsigned int);
