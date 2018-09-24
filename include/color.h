@@ -2,12 +2,15 @@
 #define COLOR_H
 
 #include <stdexcept>
+#include <cmath>
 
 class Color {
 	int r, g, b, a;
 
 	inline void setComponent(int& component, int value);
 	inline static bool checkIntegrity(int value);
+	inline static int
+	blendColorComponents(int a, int b, double alphaA, double alphaB);
 public:
 	inline explicit Color(int, int, int, int = 255);
 	Color(const Color&) = default;
@@ -38,6 +41,12 @@ void Color::setComponent(int& component, int value)
 bool Color::checkIntegrity(int value)
 {
 	return value >= 0 && value <= 255;
+}
+
+int Color::blendColorComponents(int a, int b, double alphaA, double alphaB)
+{
+	return static_cast<int>((b * alphaB + a * alphaA * (1 - alphaB)) /
+				(alphaB + alphaA * (1 - alphaB)));
 }
 
 Color::Color(int r, int g, int b, int a)
@@ -90,17 +99,16 @@ void Color::setAlpha(int a)
 
 Color Color::operator+(const Color& other) const
 {
-	// blend factor
-	double bf = other.getAlpha() / 255.0;
+	double a1 = this->getAlpha() / 255.0;
+	double a2 = other.getAlpha() / 255.0;
 
-	return Color(static_cast<int>((1.0 - bf) * getRed() +
-				      bf * other.getRed()),
-		     static_cast<int>((1.0 - bf) * getGreen() +
-				      bf * other.getGreen()),
-		     static_cast<int>((1.0 - bf) * getBlue() +
-				      bf * other.getBlue()),
-		     static_cast<int>((1.0 - bf) * getAlpha() +
-				      bf * other.getAlpha()));
+	int newRed = blendColorComponents(this->r, other.r, a1, a2);
+	int newGreen = blendColorComponents(this->g, other.g, a1, a2);
+	int newBlue = blendColorComponents(this->b, other.b, a1, a2);
+	int newAlpha = static_cast<int>(std::lround(
+		255 * (a2 + a1 * (1 - a2))));
+
+	return Color(newRed, newGreen, newBlue, newAlpha);
 }
 
 Color& Color::operator+=(const Color& other)
