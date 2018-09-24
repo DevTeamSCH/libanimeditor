@@ -14,7 +14,7 @@ class PixelMatrix {
 public:
 	const unsigned int n, m;
 
-	explicit PixelMatrix(unsigned int, unsigned int);
+	explicit inline PixelMatrix(unsigned int, unsigned int);
 	inline PixelQuartet& getPixelQuartet(unsigned int, unsigned int);
 	inline const PixelQuartet&
 	getPixelQuartet(unsigned int, unsigned int) const;
@@ -24,6 +24,14 @@ public:
 
 	static std::pair<int, int> roundvec2(const vec2&);
 };
+
+PixelMatrix::PixelMatrix(unsigned int n, unsigned int m) :
+	matrix(n * m),
+	n(n),
+	m(m)
+{
+
+}
 
 bool PixelMatrix::checkBounds(unsigned int n, unsigned int m) const
 {
