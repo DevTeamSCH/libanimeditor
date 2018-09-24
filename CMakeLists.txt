@@ -26,7 +26,8 @@ add_library(animeditor ${HEADERS} ${SOURCES})
 # Tests
 set(TEST_HEADERS test/catch.hpp)
 
-set(TEST_SOURCES test/main.cpp)
+set(TEST_SOURCES test/main.cpp
+        test/test_color.cpp)
 
 add_executable(libanimeditor-test ${TEST_HEADERS} ${TEST_SOURCES})
 
