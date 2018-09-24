@@ -9,12 +9,13 @@
 
 class PixelMatrix {
 	std::vector<PixelQuartet> matrix;
+	unsigned int n, m;
 
 	inline bool checkBounds(unsigned int n, unsigned int m) const;
 public:
-	const unsigned int n, m;
-
 	explicit inline PixelMatrix(unsigned int, unsigned int);
+	unsigned int getN() const;
+	unsigned int getM() const;
 	inline PixelQuartet& getPixelQuartet(unsigned int, unsigned int);
 	inline const PixelQuartet&
 	getPixelQuartet(unsigned int, unsigned int) const;
@@ -42,6 +43,16 @@ PixelQuartet& PixelMatrix::getPixelQuartet(unsigned int n, unsigned int m)
 {
 	return const_cast<PixelQuartet&>(const_cast<const PixelMatrix *>(this)->
 				  getPixelQuartet(n, m));
+}
+
+unsigned int PixelMatrix::getN() const
+{
+	return n;
+}
+
+unsigned int PixelMatrix::getM() const
+{
+	return m;
 }
 
 const PixelQuartet&
