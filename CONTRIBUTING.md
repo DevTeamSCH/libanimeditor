@@ -78,4 +78,6 @@ Whenever you start working on a new feature, you should create a new branch for 
 7. And lastly, the **lines** should be maximum **80 columns long**.
 
 ### Commit messages
-Commit messages should help others understand the reasons and the contents of your change. You should write a short message in imperative.
+Write the title of the commit message in ***imperative***.
+
+Commit messages should help others understand the reasons and the contents of your change.
