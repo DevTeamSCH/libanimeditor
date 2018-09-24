@@ -42,28 +42,6 @@ TEST_CASE("Color: check setters", "[color]")
 	}
 }
 
-TEST_CASE("Color: check getters", "[color]")
-{
-	const int redValue = 1;
-	const int greenValue = 2;
-	const int blueValue = 3;
-	const int alphaValue = 4;
-
-	Color c(redValue, greenValue, blueValue, alphaValue);
-
-	const std::array<std::pair<std::function<int(const Color&)>, int>,
-		4> getterValuePairs =
-		{
-			std::make_pair(&Color::getRed, redValue),
-			std::make_pair(&Color::getGreen, greenValue),
-			std::make_pair(&Color::getBlue, blueValue),
-			std::make_pair(&Color::getAlpha, alphaValue)
-		};
-
-	for (auto gvPair : getterValuePairs)
-		REQUIRE(gvPair.first(c) == gvPair.second);
-}
-
 TEST_CASE("Color: check + operator", "[color]")
 {
 	/*
