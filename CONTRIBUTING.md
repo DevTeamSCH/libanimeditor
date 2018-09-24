@@ -6,7 +6,7 @@ Bug reports should be clear and precise. They should describe the problem in as 
 * Avoid duplicate issues. Before creating a new one, check if there is a similar issue open.
 * Come up with a short and concise title, that describes the problem clearly.
 * Write a description of the problem or suggestion. Should contain every important detail (especially the steps required to reproduce the bug, if it's a bug report), but try to keep it clear and on topic.
-* Issues are easier to read if they are formatted. You can use [GitHub flavored Markdown](https://guides.github.com/features/mastering-markdown/), which has a simple syntax but provides many possibilites to format text.
+* Issues are easier to read if they are formatted. You can use [GitHub flavored Markdown](https://guides.github.com/features/mastering-markdown/), which has a simple syntax but provides many possibilities to format text.
 
 ## Contributing code
 
