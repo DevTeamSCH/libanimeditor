@@ -12,7 +12,7 @@ class Color {
 	inline static int
 	blendColorComponents(int a, int b, double alphaA, double alphaB);
 public:
-	inline explicit Color(int, int, int, int = 255);
+	explicit Color(int, int, int, int = 255);
 	Color(const Color&) = default;
 	Color(Color&&) = default;
 	Color& operator=(const Color&) = default;
@@ -26,7 +26,7 @@ public:
 	inline void setGreen(int g);
 	inline void setBlue(int b);
 	inline void setAlpha(int a);
-	inline Color operator+(const Color& other) const;
+	Color operator+(const Color& other) const;
 	inline Color& operator+=(const Color& other);
 };
 
@@ -47,14 +47,6 @@ int Color::blendColorComponents(int a, int b, double alphaA, double alphaB)
 {
 	return static_cast<int>((b * alphaB + a * alphaA * (1 - alphaB)) /
 				(alphaB + alphaA * (1 - alphaB)));
-}
-
-Color::Color(int r, int g, int b, int a)
-{
-	setComponent(this->r, r);
-	setComponent(this->g, g);
-	setComponent(this->b, b);
-	setComponent(this->a, a);
 }
 
 int Color::getRed() const
@@ -95,20 +87,6 @@ void Color::setBlue(int b)
 void Color::setAlpha(int a)
 {
 	setComponent(this->a, a);
-}
-
-Color Color::operator+(const Color& other) const
-{
-	double a1 = this->getAlpha() / 255.0;
-	double a2 = other.getAlpha() / 255.0;
-
-	int newRed = blendColorComponents(this->r, other.r, a1, a2);
-	int newGreen = blendColorComponents(this->g, other.g, a1, a2);
-	int newBlue = blendColorComponents(this->b, other.b, a1, a2);
-	int newAlpha = static_cast<int>(std::lround(
-		255 * (a2 + a1 * (1 - a2))));
-
-	return Color(newRed, newGreen, newBlue, newAlpha);
 }
 
 Color& Color::operator+=(const Color& other)
