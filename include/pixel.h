@@ -14,6 +14,8 @@ public:
 
 	inline void setColor(const Color&);
 	inline const Color& getColor() const;
+	inline Pixel operator+(const Pixel&) const;
+	inline Pixel& operator+=(const Pixel&);
 };
 
 Pixel::Pixel(const Color& color) :
@@ -30,6 +32,16 @@ void Pixel::setColor(const Color& color)
 const Color& Pixel::getColor() const
 {
 	return color;
+}
+
+Pixel Pixel::operator+(const Pixel& other) const
+{
+	return Pixel(this->color + other.color);
+}
+
+Pixel& Pixel::operator+=(const Pixel& other)
+{
+	return *this = *this + other;
 }
 
 #endif // PIXEL_H
