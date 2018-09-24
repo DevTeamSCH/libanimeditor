@@ -12,7 +12,7 @@ TEST_CASE("Pixel: check constructor", "[pixel]")
 	REQUIRE(p.getColor().getAlpha() == 4);
 }
 
-TEST_CASE("Pixel: check setter and getter", "[pixel]")
+TEST_CASE("Pixel: check setter", "[pixel]")
 {
 	Pixel p;
 	p.setColor(Color(1, 2, 3, 4));
