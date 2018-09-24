@@ -18,7 +18,8 @@ set(HEADERS include/color.h
         include/vec2.h)
 
 set(SOURCES src/color.cpp
-        src/pixelmatrix.cpp)
+        src/pixelmatrix.cpp
+        src/pixelquartet.cpp)
 
 add_library(animeditor ${HEADERS} ${SOURCES})
 

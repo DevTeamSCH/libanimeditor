@@ -16,7 +16,7 @@ public:
 
 	inline Pixel& getPixel(unsigned int, unsigned int);
 	inline const Pixel& getPixel(unsigned int, unsigned int) const;
-	inline PixelQuartet operator+(const PixelQuartet&) const;
+	PixelQuartet operator+(const PixelQuartet&) const;
 	inline PixelQuartet& operator+=(const PixelQuartet&);
 };
 
@@ -37,18 +37,6 @@ const Pixel& PixelQuartet::getPixel(unsigned int n, unsigned int m) const
 		throw std::out_of_range("Out of range error");
 
 	return pixels[n][m];
-}
-
-PixelQuartet PixelQuartet::operator+(const PixelQuartet& other) const
-{
-	PixelQuartet tmp(*this);
-	for (unsigned int i = 0; i < 2; ++i) {
-		for (unsigned int j = 0; j < 2; ++j) {
-			tmp.pixels[i][j] += other.pixels[i][j];
-		}
-	}
-
-	return tmp;
 }
 
 PixelQuartet& PixelQuartet::operator+=(const PixelQuartet& other)
