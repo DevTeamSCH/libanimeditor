@@ -9,6 +9,11 @@ class PixelQuartet {
 	std::array<std::array<Pixel, 2>, 2> pixels;
 public:
 	inline PixelQuartet();
+	PixelQuartet(const PixelQuartet&) = default;
+	PixelQuartet(PixelQuartet&&) = default;
+	PixelQuartet& operator=(const PixelQuartet&) = default;
+	PixelQuartet& operator=(PixelQuartet&&) = default;
+
 	inline Pixel& getPixel(unsigned int, unsigned int);
 	inline const Pixel& getPixel(unsigned int, unsigned int) const;
 	inline PixelQuartet operator+(const PixelQuartet&) const;
