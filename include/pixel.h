@@ -7,6 +7,11 @@ class Pixel {
 	Color color;
 public:
 	inline explicit Pixel(const Color& = Color(0, 0, 0));
+	Pixel(const Pixel&) = default;
+	Pixel(Pixel&&) = default;
+	Pixel& operator=(const Pixel&) = default;
+	Pixel& operator=(Pixel&&) = default;
+
 	inline void setColor(const Color&);
 	inline const Color& getColor() const;
 };
