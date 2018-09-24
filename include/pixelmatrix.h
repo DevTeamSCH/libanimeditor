@@ -119,6 +119,6 @@ void PixelMatrix::addLayer(const PixelMatrix& pm, const vec2& v)
 
 std::pair<int, int> PixelMatrix::roundvec2(const vec2& v)
 {
-	return std::pair<int, int>(std::lround(v.y), std::lround(v.x));
+	return {std::lround(v.y), std::lround(v.x)};
 }
 #endif // PIXELMATRIX_H
