@@ -43,7 +43,13 @@ Whenever you start working on a new feature, you should create a new branch for 
     ```
     typeof(x)
     ```
-4. When using **switch cases** the cases should be on the same indentation level as the switch case itself. E.g.:
+4. Put a **space before the first asterisk** when you use pointer types, and put a **space after the last ampersand** when using reference types. E.g.:
+    ```
+    int x;
+    int *p = &x;
+    int& r = x;
+    ```
+5. When using **switch cases** the cases should be on the same indentation level as the switch case itself. E.g.:
     ```
     switch (something) {
     case SMTH_1:
@@ -54,7 +60,7 @@ Whenever you start working on a new feature, you should create a new branch for 
     	break;
     }
     ```
-5. When **naming** *classes, functions and variables* use **camel-case**. Start classes' name with an *uppercase* letter, and variables' and functions' with a *lowercase*. E.g.:
+6. When **naming** *classes, functions and variables* use **camel-case**. Start classes' name with an *uppercase* letter, and variables' and functions' with a *lowercase*. E.g.:
     ```
     class MySampleClass {
     	void mySampleFunction()
@@ -63,7 +69,7 @@ Whenever you start working on a new feature, you should create a new branch for 
     	}
     };
     ```
-6. When **commenting** use the following examples as a guideline:
+7. When **commenting** use the following examples as a guideline:
     ```
     // One line comment, and there is a space after the second forward slash.
     ```
@@ -75,7 +81,7 @@ Whenever you start working on a new feature, you should create a new branch for 
      * and also they line up below each other.
      */
     ```
-7. And lastly, the **lines** should be maximum **80 columns long**.
+8. And lastly, the **lines** should be maximum **80 columns long**.
 
 ### Commit messages
 Write the title of the commit message in ***imperative***.
