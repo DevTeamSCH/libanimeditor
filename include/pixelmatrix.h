@@ -19,8 +19,8 @@ public:
 	inline PixelMatrix& operator=(const PixelMatrix&) = default;
 	inline PixelMatrix& operator=(PixelMatrix&&) = default;
 
-	unsigned int getN() const;
-	unsigned int getM() const;
+	inline unsigned int getN() const;
+	inline unsigned int getM() const;
 	inline PixelQuartet& getPixelQuartet(unsigned int, unsigned int);
 	inline const PixelQuartet&
 	getPixelQuartet(unsigned int, unsigned int) const;
@@ -28,7 +28,7 @@ public:
 	inline const PixelQuartet& getPixelQuartet(const vec2&) const;
 	inline void addLayer(const PixelMatrix&, const vec2&);
 
-	static std::pair<int, int> roundvec2(const vec2&);
+	static inline std::pair<int, int> roundvec2(const vec2&);
 };
 
 PixelMatrix::PixelMatrix(unsigned int n, unsigned int m) :
