@@ -16,6 +16,8 @@ public:
 	inline const Color& getColor() const;
 	inline Pixel operator+(const Pixel&) const;
 	inline Pixel& operator+=(const Pixel&);
+	inline bool operator==(const Pixel& rhs) const;
+	inline bool operator!=(const Pixel& rhs) const;
 };
 
 Pixel::Pixel(const Color& color) :
@@ -42,6 +44,16 @@ Pixel Pixel::operator+(const Pixel& other) const
 Pixel& Pixel::operator+=(const Pixel& other)
 {
 	return *this = *this + other;
+}
+
+bool Pixel::operator==(const Pixel& rhs) const
+{
+	return color == rhs.color;
+}
+
+bool Pixel::operator!=(const Pixel& rhs) const
+{
+	return !(rhs == *this);
 }
 
 #endif // PIXEL_H

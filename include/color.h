@@ -28,6 +28,8 @@ public:
 	inline void setAlpha(int a);
 	Color operator+(const Color& other) const;
 	inline Color& operator+=(const Color& other);
+	bool operator==(const Color& rhs) const;
+	inline bool operator!=(const Color& rhs) const;
 };
 
 void Color::setComponent(int& component, int value)
@@ -92,6 +94,11 @@ void Color::setAlpha(int a)
 Color& Color::operator+=(const Color& other)
 {
 	return *this = *this + other;
+}
+
+bool Color::operator!=(const Color& rhs) const
+{
+	return !(rhs == *this);
 }
 
 #endif // COLOR_H

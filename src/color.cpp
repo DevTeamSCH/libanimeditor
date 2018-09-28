@@ -20,3 +20,11 @@ Color Color::operator+(const Color& other) const
 
 	return Color(newRed, newGreen, newBlue, newAlpha);
 }
+
+bool Color::operator==(const Color& rhs) const
+{
+	return r == rhs.r &&
+	       g == rhs.g &&
+	       b == rhs.b &&
+	       a == rhs.a;
+}

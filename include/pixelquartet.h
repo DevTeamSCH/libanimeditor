@@ -18,6 +18,8 @@ public:
 	inline const Pixel& getPixel(unsigned int, unsigned int) const;
 	PixelQuartet operator+(const PixelQuartet&) const;
 	inline PixelQuartet& operator+=(const PixelQuartet&);
+	inline bool operator==(const PixelQuartet& rhs) const;
+	inline bool operator!=(const PixelQuartet& rhs) const;
 };
 
 PixelQuartet::PixelQuartet()
@@ -42,6 +44,16 @@ const Pixel& PixelQuartet::getPixel(unsigned int n, unsigned int m) const
 PixelQuartet& PixelQuartet::operator+=(const PixelQuartet& other)
 {
 	return *this = *this + other;
+}
+
+bool PixelQuartet::operator==(const PixelQuartet& rhs) const
+{
+	return pixels == rhs.pixels;
+}
+
+bool PixelQuartet::operator!=(const PixelQuartet& rhs) const
+{
+	return !(rhs == *this);
 }
 
 #endif // PIXELQUARTET_H
