@@ -85,34 +85,28 @@ const PixelQuartet& PixelMatrix::getPixelQuartet(const vec2& v) const
 
 void PixelMatrix::addLayer(const PixelMatrix& pm, const vec2& v)
 {
-	auto p = roundvec2(v);
+	auto offset = roundvec2(v);
+	int rowOffset = offset.first;
+	int columnOffset = offset.second;
+	int n_ = static_cast<int>(pm.n);
+	int m_ = static_cast<int>(pm.m);
 
-	for (unsigned int i = 0; i < pm.n; ++i) {
-		int row = static_cast<int>(i) + p.first;
+	int rowLowerBound = std::max(-rowOffset, 0);
+	int rowUpperBound = std::min(static_cast<int>(n) - rowOffset, n_);
 
-		if (row < 0)
-			continue;
+	int columnLowerBound = std::max(-columnOffset, 0);
+	int columnUpperBound = std::min(static_cast<int>(m) - columnOffset, m_);
 
-		if (row >= static_cast<int>(n))
-			break;
+	for (int i = rowLowerBound; i < rowUpperBound; ++i) {
+		auto row = static_cast<unsigned int>(rowOffset + i);
 
-		for (unsigned int j = 0; j < pm.m; ++j) {
-			int column = static_cast<int>(j) + p.second;
+		for (int j = columnLowerBound; j < columnUpperBound; ++j) {
+			auto column = static_cast<unsigned int>(columnOffset +
+								j);
 
-			if (column < 0)
-				continue;
-
-			if (column >= static_cast<int>(m))
-				break;
-
-			auto& pixelQuartet =
-					getPixelQuartet(
-						static_cast<unsigned int>(row),
-						static_cast<unsigned int>(
-							column));
-
-			pixelQuartet += pm.getPixelQuartet(i, j);
-
+			getPixelQuartet(row, column) += pm.getPixelQuartet(
+				static_cast<unsigned int>(i),
+				static_cast<unsigned int>(j));
 		}
 	}
 }
