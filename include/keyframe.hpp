@@ -17,8 +17,8 @@ public:
 	KeyFrame<T>& operator=(const KeyFrame&) = default;
 	KeyFrame<T>& operator=(KeyFrame&&) = default;
 
-	T& getObject();
-	const T& getObject() const;
+	inline T& getObject();
+	inline const T& getObject() const;
 };
 
 template<typename T>
