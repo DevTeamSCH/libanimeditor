@@ -12,7 +12,11 @@ class KeyFrame {
 	T t;
 public:
 	explicit KeyFrame(const T& t);
-	KeyFrame(KeyFrame<T>&&) = delete;
+	KeyFrame(const KeyFrame<T>&) = default;
+	KeyFrame(KeyFrame<T>&&) = default;
+	KeyFrame<T>& operator=(const KeyFrame&) = default;
+	KeyFrame<T>& operator=(KeyFrame&&) = default;
+
 	T& getObject();
 	const T& getObject() const;
 };
