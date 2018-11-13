@@ -2,9 +2,13 @@
 #define TIMELINE_H
 
 #include <map>
+#include <chrono>
 
 #include "keyframe.hpp"
 #include "grapicsstate.h"
+
+using Duration = std::chrono::duration<int, std::milli>;
+using TimePoint = std::chrono::duration<int, std::milli>;
 
 /*
  * Returning a GraphicsState is different than returning a PixelMatrix, as we

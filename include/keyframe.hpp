@@ -2,10 +2,6 @@
 #define KEYFRAME_H
 
 #include <memory>
-#include <chrono>
-
-using Duration = std::chrono::duration<int, std::milli>;
-using TimePoint = std::chrono::duration<int, std::milli>;
 
 template<typename T>
 class KeyFrame {
