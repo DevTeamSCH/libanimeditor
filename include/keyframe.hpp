@@ -10,34 +10,18 @@ using TimePoint = std::chrono::duration<int, std::milli>;
 template<typename T>
 class KeyFrame {
 	T t;
-	Duration duration; // the duration of the keyframe
 public:
-	explicit KeyFrame(const T& t, const Duration& duration);
+	explicit KeyFrame(const T& t);
 	KeyFrame(KeyFrame<T>&&) = delete;
-	void setDuration(const Duration&);
-	Duration getDuration() const;
 	T& getObject();
 	const T& getObject() const;
 };
 
 template<typename T>
-KeyFrame<T>::KeyFrame(const T& t, const Duration& duration) :
-	t(t),
-	duration(duration)
+KeyFrame<T>::KeyFrame(const T& t) :
+	t(t)
 {
 
-}
-
-template<typename T>
-void KeyFrame<T>::setDuration(const Duration& duration)
-{
-	this->duration = duration;
-}
-
-template<typename T>
-Duration KeyFrame<T>::getDuration() const
-{
-	return duration;
 }
 
 template<typename T>
