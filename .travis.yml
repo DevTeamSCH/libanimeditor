@@ -8,9 +8,16 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.9
+    - lcov
 
 script:
   - CXX=/usr/bin/g++-4.9 CC=/usr/bin/gcc-4.9 cmake .
   - cmake --build . --target animeditor
   - cmake --build . --target libanimeditor-test
   - ./libanimeditor-test
+
+after_success:
+  - lcov --capture --directory . --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
+  - lcov --list coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info
