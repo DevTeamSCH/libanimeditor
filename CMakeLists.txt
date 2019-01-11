@@ -30,7 +30,8 @@ set(TEST_SOURCES test/main.cpp
         test/test_color.cpp
         test/test_pixel.cpp)
 
-add_executable(libanimeditor-test ${TEST_HEADERS} ${TEST_SOURCES})
+add_executable(libanimeditor-test ${TEST_HEADERS} ${HEADERS} ${TEST_SOURCES} ${SOURCES})
 
-target_link_libraries(libanimeditor-test
-        animeditor)
+set_target_properties(libanimeditor-test PROPERTIES
+                        COMPILE_FLAGS "-fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage"
+                        LINK_FLAGS "-fprofile-arcs")
