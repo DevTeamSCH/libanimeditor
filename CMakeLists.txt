@@ -34,4 +34,4 @@ add_executable(libanimeditor-test ${TEST_HEADERS} ${HEADERS} ${TEST_SOURCES} ${S
 
 set_target_properties(libanimeditor-test PROPERTIES
                         COMPILE_FLAGS "-fkeep-inline-functions -fkeep-static-functions --coverage"
-                        LINK_FLAGS "--coverage")
+                        LINK_FLAGS "--coverage -std=c++11")
