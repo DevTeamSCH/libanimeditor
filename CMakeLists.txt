@@ -33,5 +33,5 @@ set(TEST_SOURCES test/main.cpp
 add_executable(libanimeditor-test ${TEST_HEADERS} ${HEADERS} ${TEST_SOURCES} ${SOURCES})
 
 set_target_properties(libanimeditor-test PROPERTIES
-                        COMPILE_FLAGS "-fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage"
-                        LINK_FLAGS "-lgcov -fprofile-arcs")
+                        COMPILE_FLAGS "-fkeep-inline-functions -fkeep-static-functions --coverage"
+                        LINK_FLAGS "--coverage")
